@@ -8,6 +8,7 @@ update this file to implement the following already declared methods:
 """
 from random import randint
 
+
 class FamilyStructure:
     def __init__(self, last_name):
         self.last_name = last_name
@@ -20,7 +21,7 @@ class FamilyStructure:
         return randint(0, 99999999)
 
     def add_member(self, member):
-        # fill this method and update the return
+
         pass
 
     def delete_member(self, id):
