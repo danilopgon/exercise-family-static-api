@@ -55,7 +55,26 @@ def handle_one_member(member_id):
     }
     return jsonify(response), 200
 
+@app.route('/member', methods=['POST'])
+def handle_post_member():
+    body = request.get_json()
+    if body is None:
+        return "The request body is null", 400
 
+    if 'name' not in body:
+        return "Name not found in request body", 400
+
+    member = body['name']
+
+    jackson_family.add_member(member)
+    members = jackson_family.get_all_members()
+
+    response_body = {
+        "family": members
+    }
+    return jsonify(response_body), 200
+
+       
 
 # this only runs if `$ python src/app.py` is executed
 if __name__ == '__main__':
