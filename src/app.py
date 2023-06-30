@@ -55,6 +55,26 @@ def handle_one_member(member_id):
     }
     return jsonify(response), 200
 
+@app.route('/members/<int:member_id>', methods=['DELETE'])
+def delete_one_member(member_id):
+    member = jackson_family.get_member(member_id)
+
+   
+    if member is None:
+        response = {
+            'error': f'Member with ID {member_id} does not exist.'
+        }
+        return jsonify(response), 400
+
+    jackson_family.delete_member(member_id)    
+
+    members = jackson_family.get_all_members()
+    response_body = {
+        "family": members
+    }
+    return jsonify(response_body), 200
+
+
 @app.route('/member', methods=['POST'])
 def handle_post_member():
     body = request.get_json()
@@ -64,17 +84,18 @@ def handle_post_member():
     if 'name' not in body:
         return "Name not found in request body", 400
 
+
     member = body['name']
-
     jackson_family.add_member(member)
-    members = jackson_family.get_all_members()
 
+    members = jackson_family.get_all_members()
     response_body = {
         "family": members
     }
     return jsonify(response_body), 200
 
-       
+
+      
 
 # this only runs if `$ python src/app.py` is executed
 if __name__ == '__main__':
