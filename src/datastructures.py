@@ -23,14 +23,14 @@ class FamilyStructure:
             {
                 "id": 2,
                 "first_name": "Jane",
-                "last_name": "Jackson",
+                "last_name": last_name,
                 "age": 35,
                 "lucky_numbers": [10, 14, 3],
             },
             {
                 "id": 3,
                 "first_name": "Jimmy",
-                "last_name": "Jackson",
+                "last_name": last_name,
                 "age": 5,
                 "lucky_numbers": [1],
             },
