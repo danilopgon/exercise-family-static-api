@@ -88,6 +88,23 @@ def handle_post_member():
             if jackson_family.get_member(member_id) is not None:
                 return f"Member with ID {member_id} already exists.", 400
 
+        if "lucky_numbers" not in body or not isinstance(body["lucky_numbers"], list):
+            response = {"error": f"The 'lucky_numbers' field must be a list."}
+            return jsonify(response), 400
+
+        if not body["lucky_numbers"]:
+            response = {"error": f"'lucky_numbers' list cannot be empty"}
+            return jsonify(response), 400
+
+        for num in body["lucky_numbers"]:
+            if not isinstance(num, int):
+                response = {"error": f"All 'lucky_numbers' must be integers."}
+                return jsonify(response), 400
+
+        if "age" not in body:
+            response = {"error": f"You have to write an age"}
+            return jsonify(response), 400
+
         jackson_family.add_member(body)
 
         return jsonify(jackson_family.get_all_members()), 200
